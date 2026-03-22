@@ -17,7 +17,7 @@ if st.button("Analyze Resume"):
         data = {"job_description": job_description}
         
         response = requests.post(
-            "http://127.0.0.1:8000/predict",
+            "https://ai-resume-screening-f9wk.onrender.com",
             files={"file": uploaded_file},
             data=data
         )
