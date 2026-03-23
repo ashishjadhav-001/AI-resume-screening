@@ -201,7 +201,7 @@ https://ai-resume-screening-f9wk.onrender.com/predict
 👉 Live App:
 
 ```
-https://your-app-name.streamlit.app
+https://ai-resume-screening-system-url.streamlit.app/
 ```
 
 ---
