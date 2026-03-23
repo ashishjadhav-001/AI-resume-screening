@@ -2,23 +2,24 @@
 
 ## 🚀 Overview
 
-The **AI Resume Screening System** is an end-to-end machine learning application that evaluates a candidate’s resume against a given job description.
-It uses **Natural Language Processing (NLP)** techniques to calculate similarity, identify matching skills, and highlight missing skills.
+The **AI Resume Screening System** is an end-to-end Machine Learning application that evaluates resumes against job descriptions using NLP techniques.
+It mimics a real-world **Applicant Tracking System (ATS)** by providing similarity scores, skill matching, and missing skill insights.
 
-This project simulates a real-world **Applicant Tracking System (ATS)** and demonstrates both **Data Science and Machine Learning Engineering capabilities**.
+This project demonstrates **Data Science + Machine Learning Engineering + Deployment skills**.
 
 ---
 
 ## 🎯 Key Features
 
-* 📥 Upload Resume (PDF format)
+* 📥 Upload Resume (PDF)
 * 📝 Input Job Description
-* 📊 TF-IDF based similarity scoring
-* 🧠 Skill extraction and matching
+* 📊 TF-IDF based similarity score
+* 🧠 Skill extraction & matching
 * ❌ Missing skill detection
 * ⚖️ Hybrid scoring system (TF-IDF + Skill Match)
 * ⚡ REST API using FastAPI
 * 🎨 Interactive UI using Streamlit
+* 🌐 Fully deployed (Backend + Frontend)
 
 ---
 
@@ -26,34 +27,31 @@ This project simulates a real-world **Applicant Tracking System (ATS)** and demo
 
 ### 1. Resume Parsing
 
-* Extracts text from uploaded PDF resumes using `pdfplumber`
+* Extracts text from PDF using `pdfplumber`
 
 ### 2. Text Preprocessing
 
 * Lowercasing
-* Removing special characters and numbers
+* Removing special characters & numbers
 * Stopword removal using `nltk`
 
 ### 3. TF-IDF Similarity
 
-* Converts text into numerical vectors
-* Calculates similarity between resume and job description using **cosine similarity**
+* Converts text into vectors
+* Uses cosine similarity to compute similarity score
 
 ### 4. Skill Extraction
 
-* Extracts predefined skills from both resume and job description
+* Extracts predefined technical skills from resume & JD
 
 ### 5. Skill Matching
 
-* Identifies:
-
-  * ✅ Matched Skills
-  * ❌ Missing Skills
-* Calculates skill match percentage
+* Identifies matched and missing skills
+* Computes skill match score
 
 ### 6. Hybrid Scoring
 
-Final score is calculated using:
+Final score is calculated as:
 
 ```
 Final Score = 0.5 × TF-IDF Score + 0.5 × Skill Match Score
@@ -63,12 +61,16 @@ Final Score = 0.5 × TF-IDF Score + 0.5 × Skill Match Score
 
 ## 🛠️ Tech Stack
 
-* **Programming Language:** Python
+* **Language:** Python
 * **Libraries:** Pandas, NumPy, Scikit-learn, NLTK
-* **NLP Techniques:** TF-IDF, Cosine Similarity
+* **NLP:** TF-IDF, Cosine Similarity
 * **Backend:** FastAPI
 * **Frontend:** Streamlit
-* **Deployment:** Render (API), Streamlit Cloud (UI)
+* **Deployment:**
+
+  * FastAPI → Render
+  * Streamlit → Streamlit Cloud
+* **Tools:** Git, GitHub
 
 ---
 
@@ -92,36 +94,35 @@ resume_screening/
 │   └── text_cleaning.py
 │
 ├── data/
-│
-├── test_extraction.py
 ├── requirements.txt
-└── README.md
+├── start.sh
+├── README.md
 ```
 
 ---
 
-## ⚙️ Installation & Setup
+## ⚙️ Installation & Setup (Local)
 
-### 1. Clone the repository
+### 1. Clone Repository
 
 ```
 git clone <your_repo_link>
 cd resume_screening
 ```
 
-### 2. Create virtual environment
+### 2. Create Virtual Environment
 
 ```
 python -m venv venv
 ```
 
-### 3. Activate environment
+### 3. Activate Environment
 
 ```
 venv\Scripts\activate
 ```
 
-### 4. Install dependencies
+### 4. Install Dependencies
 
 ```
 pip install -r requirements.txt
@@ -129,15 +130,15 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Running the Application
+## 🚀 Running Locally
 
-### ▶️ Start FastAPI backend
+### ▶️ Start FastAPI Backend
 
 ```
 uvicorn api.main:app --reload
 ```
 
-### ▶️ Start Streamlit frontend
+### ▶️ Start Streamlit Frontend
 
 ```
 streamlit run app/streamlit_app.py
@@ -145,23 +146,83 @@ streamlit run app/streamlit_app.py
 
 ---
 
-## 🌐 API Endpoint
+## 🌐 Deployment
+
+### 🔹 Backend (FastAPI on Render)
+
+* Created `start.sh` for production:
+
+```
+#!/bin/bash
+uvicorn api.main:app --host 0.0.0.0 --port 10000
+```
+
+* Build Command:
+
+```
+pip install -r requirements.txt
+```
+
+* Start Command:
+
+```
+bash start.sh
+```
+
+👉 Live API:
+
+```
+https://ai-resume-screening-f9wk.onrender.com
+```
+
+👉 Swagger Docs:
+
+```
+https://ai-resume-screening-f9wk.onrender.com/docs
+```
+
+---
+
+### 🔹 Frontend (Streamlit Cloud)
+
+* Connected GitHub repository
+* Selected file:
+
+```
+app/streamlit_app.py
+```
+
+* Updated API URL in Streamlit:
+
+```
+https://ai-resume-screening-f9wk.onrender.com/predict
+```
+
+👉 Live App:
+
+```
+https://your-app-name.streamlit.app
+```
+
+---
+
+## 🔌 API Endpoint
 
 ### POST `/predict`
 
-**Inputs:**
+**Input:**
 
-* Resume file (PDF)
-* Job description (text)
+* Resume (PDF file)
+* Job Description (text)
 
-**Response:**
+**Output:**
 
 ```json
 {
   "tfidf_score": 39.48,
   "skill_score": 85.71,
   "final_score": 62.59,
-  "matched_skills": ["python", "sql"],
+  "matched_skills": ["python", "sql", "pandas"],
   "missing_skills": ["tableau"]
 }
 ```
@@ -177,21 +238,30 @@ streamlit run app/streamlit_app.py
 
 ---
 
-## 🔥 Future Improvements
+## 🔥 Key Highlights
 
-* Use **BERT embeddings** for semantic understanding
+* Built **end-to-end ML system** (data → model → API → UI)
+* Solved limitation of TF-IDF using **hybrid scoring**
+* Implemented **skill-based matching algorithm**
+* Deployed full-stack ML application
+
+---
+
+## 🚀 Future Improvements
+
+* Use **BERT embeddings** for better semantic understanding
 * Dynamic skill extraction using NLP models
 * Resume ranking system
-* Support for multiple resumes
-* Cloud deployment with CI/CD
+* Multi-resume comparison
+* CI/CD pipeline
 
 ---
 
 ## 💼 Use Cases
 
-* Automated resume screening for recruiters
-* Job seekers optimizing resumes
-* HR analytics and hiring systems
+* Automated resume screening for HR
+* Resume optimization for job seekers
+* ATS system simulation
 
 ---
 
@@ -201,6 +271,6 @@ streamlit run app/streamlit_app.py
 
 ---
 
-## ⭐ Acknowledgement
+## ⭐ Conclusion
 
-This project demonstrates practical implementation of **Machine Learning, NLP, and API deployment**, bridging the gap between learning and real-world application.
+This project showcases the ability to build, deploy, and present a real-world ML system, combining **Data Science, NLP, Backend Engineering, and Deployment skills**.
